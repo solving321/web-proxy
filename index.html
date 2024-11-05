@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewport Viewer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        iframe {
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Viewport 1: 320 x 256 (400% Zoom)</h2>
+        <iframe id="iframe1" width="320" height="256"></iframe>
+    </div>
+    <div>
+        <h2>Viewport 2: 1024 x 1280 (100% Zoom)</h2>
+        <iframe id="iframe2" width="1024" height="1280"></iframe>
+    </div>
+
+    <script>
+        // Get the website URL from the query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const website = urlParams.get('website');
+
+        // Set the src attribute of the iframes using the proxy server
+        if (website) {
+            const proxyUrl = `http://localhost:3000/proxy?url=${encodeURIComponent(website)}`;
+            document.getElementById('iframe1').src = proxyUrl;
+            document.getElementById('iframe2').src = proxyUrl;
+        } else {
+            document.getElementById('iframe1').src = "about:blank";
+            document.getElementById('iframe2').src = "about:blank";
+        }
+    </script>
+</body>
+</html>
